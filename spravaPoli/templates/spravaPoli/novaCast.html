@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "general/base.html" %}
+
+{% block title %}
+    Nová časť
+{% endblock %}
+
 {% block content %}
     <form action={% url 'spravaPoli:nova cast' %} method="POST">
     {% csrf_token %}
     {% if form %}
-        <p> FORM</p>
+        <p>Pridanie novej časti</p>
         {{ form.as_p }}
 
-        <input type="submit" value="Potvrdiť" />
-        <a href="{% url 'spravaPoli:prehlad pola' %}">Späť na prehľad poľa</a>
+        <input class="button2" type="submit" value="Potvrdiť" />
+        <a href="{% url 'spravaPoli:prehlad pola' %}" class="button2">Späť na prehľad poľa</a>
     </form>
     {% else %}
     <p>Ohhhh</p>
     {% endif %}
 {% endblock %}
-</body>
-</html>

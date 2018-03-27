@@ -1,8 +1,6 @@
-from django.conf.urls import url, include
-from django.contrib.auth.views import logout
+from django.conf.urls import url
 
 from . import views
-from agroManager import settings
 
 app_name = 'spravaPoli'
 urlpatterns = [

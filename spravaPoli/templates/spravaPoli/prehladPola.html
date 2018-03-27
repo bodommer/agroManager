@@ -1,28 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% block content %}
-    {% for cast in casti %}
-        <div>
-            <h5><a href={% url 'spravaPoli:prehlad casti' cast.id %}>{{ cast.meno }}</a></h5>
-            <p>
-                Meno: {{ cast.pozemok }}
-                Rozloha: {{ cast.rozloha }}
-                Pouzivany: {% if cast.pouzivany %} Ano {% else %} Nie {% endif %}
-                Pozemok: {{ cast.pozemok.id }}
-            </p>
-        </div>
-    {% endfor %}
-    {% for plod in plodiny %}
-        <div><a href={% url 'spravaPoli:prehlad plodiny' plod.id %}><h5>{{ plod.meno }}</h5></a></div>
-    {% endfor %}
+{% extends "general/base.html" %}
 
-<a href="{% url 'spravaPoli:nova cast' %}">nova cast</a>
-<a href="{% url 'spravaPoli:nova plodina' %}">nova plodina</a>
+{% block title %}
+    Prehľad poľa
 {% endblock %}
-</body>
-</html>
+{% block content %}
+    {% if casti %}
+        <h3>Časti pozemku:</h3>
+    {% else %}
+        <p>Ešte nie sú pridané žiadne časti poľa!</p>
+    {% endif %}
+    {% for cast in casti %}<div class="OverviewCast">
+            <a href="{% url "spravaPoli:prehlad casti" cast.id %}" class ="castLink">
+                <h3>{{ cast.meno }}</h3>
+                <p>
+                    Pozemok: {{ cast.pozemok.meno }}<br>
+                    Rozloha: {{ cast.rozloha }} m2<br>
+                    Používaná: {% if cast.pouzivany %} Áno {% else %} Nie {% endif %}<br>
+                </p>
+            </a>
+        </div>{% endfor %}
+        <div class="OverviewCast">
+            <a href="{% url "spravaPoli:nova cast" %}" class ="castLink button1">
+                <h3>Nová časť</h3>
+            </a>
+        </div>
+    {% if plodiny %}
+        <h3>Plodiny:</h3>
+    {% else %}
+        <p>Ešte nie sú pridané žiadne plodiny!</p>
+    {% endif %}
+    {% for plod in plodiny %}<div class="OverviewPlodina">
+        <a href={% url 'spravaPoli:prehlad plodiny' plod.id %} class="plodinaLink">
+                <h3>{{ plod.meno }}</h3>
+            </a>
+        </div>{% endfor %}<div class="OverviewPlodina">
+        <a href="{% url 'spravaPoli:nova plodina' %}" class="plodinaLink">
+            <h3>Nová plodina</h3>
+        </a>
+    </div>
+
+{% endblock %}

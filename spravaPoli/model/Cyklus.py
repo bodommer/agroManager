@@ -1,8 +1,10 @@
 from django.db import models
+
 from spravaPoli.model.Cast import Cast
 from spravaPoli.model.Plodina import Plodina
-from spravaPoli.model.Zber import Zber
 from spravaPoli.model.Vysadba import Vysadba
+from spravaPoli.model.Zber import Zber
+
 
 class Cyklus(models.Model):
     cast = models.ForeignKey(Cast, on_delete=models.CASCADE)

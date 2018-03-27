@@ -1,37 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "general/base.html" %}
+
+{% block title %}
+    Prehľad častí - {{ cykly.first.cast.meno }}
+{% endblock %}
+
 {% block content %}
+    {% if cykly %}
+        <h3>Cykly časti {{ cykly.first.cast.meno }}:</h3>
+    {% else %}
+        <p>Toto pole zatiaľ neobsahuje žiadne cykly.</p>
+    {% endif %}
     {% for cyklus in cykly %}
-        <div>
-            <h5>{{ cyklus.cast.meno }}, {{ cyklus.plodina.meno }}</h5>
+        <div class="cyklusDisplay">
+            <h4>Cyklus <span id="cyklusCounter">:</span></h4>
+            <p>
+                Plodina: {{ cyklus.plodina.meno }} <br>
             {% if cyklus.vysadba %}
-                <p>{{ cyklus.vysadba.datumVysadby }}, {{ cyklus.vysadba.casVysadby }}, {{ cyklus.vysadba.naklady }}, {{ cyklus.vysadba.vysadeneMnozstvo }}</p>
+                Výsadba prebehla dňa {{ cyklus.vysadba.datumVysadby }}, stála {{ cyklus.vysadba.naklady }}&euro; a spotrebovala {{ cyklus.vysadba.vysadeneMnozstvo }} g materiálu.<br>
             {% else %}
-                <a href="{% url 'spravaPoli:nova vysadba' cast_id cyklus.id %}">Pridat vysadbu</a>
+                Tento cyklus ešte nemá výsadbu. <a href="{% url 'spravaPoli:nova vysadba' cast_id cyklus.id %}" class="button2">Pridať výsadbu</a><br>
             {% endif %}
             {% if cyklus.zber %}
-                <p>{{ cyklus.zber.datumZberu }}, {{ cyklus.zber.casZberu }}, {{ cyklus.zber.uroda }}, {{ cyklus.zber.zisk }}</p>
+                Zber prebehol dňa {{ cyklus.zber.datumZberu }}, zožaných bolo {{ cyklus.zber.uroda }}kg úrody a príjmy z úrody boli {{ cyklus.zber.zisk }}&euro;.<br>
             {% else %}
-                <a href="{% url 'spravaPoli:novy zber' cast_id cyklus.id %}">Pridat zber</a>
+                Tento cyklus ešte nemá za sebou zber. <a href="{% url 'spravaPoli:novy zber' cast_id cyklus.id %}" class="button2">Pridať zber</a>
             {% endif %}
+            </p>
         </div>
     {% endfor %}
     <form action={% url 'spravaPoli:prehlad casti' cast_id %} method="POST">
     {% csrf_token %}
+        <span>Pridanie cyklu:</span>
         <select name="plodina_id" id="plodina_id">
             {% for pl in plodiny %}
                 <option value={{ pl.id }}>{{ pl.meno }}</option>
             {% endfor %}
         </select>
         <input type="hidden" value="novy_cyklus">
-        <input type="submit" value="Novy cyklus" />
+        <input type="submit" value="Nový cyklus"  class="button2"/>
+        <a  class="button2" href="{% url 'spravaPoli:prehlad pola' %}">Späť na prehľad pola</a>
     </form>
-    <a href="{% url 'spravaPoli:prehlad pola' %}">Späť na prehľad pola</a>
 {% endblock %}
-</body>
-</html>

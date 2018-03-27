@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for cyklus in data %}
-    <div>
-        <h5>{{ cyklus.cast.meno }}</h5>
-        <p>{{ cyklus.vysadba }}</p>
-        <p>{{ cyklus.zber }}</p>
-    </div>
-    <a href="{% url 'spravaPoli:prehlad pola' %}">Späť na prehľad pola</a>
-{% endfor %}
-</body>
-</html>
+{% extends "general/base.html" %}
+
+{% block title %}
+    Prehľad plodiny - {{ data.first.plodina.meno }}
+{% endblock %}
+
+{% block content %}
+    {% if data %}
+        <table>
+            <th><td>Pole</td><td>Rozloha</td><td>Dátum výsadby</td><td>Množstvo</td><td>Náklady</td><td>Dátum zberu</td><td>Úroda</td><td>Zisk</td><td>:)</td></th>
+            {% for cyklus in data %}
+            <tr><td>{{ cyklus.cast.meno }}</td><td>{{ cyklus.cast.rozloha }}</td><td>{{ cyklus.vysadba.datumVysadby }}</td>
+                <td>{{ cyklus.vysadba.vysadeneMnozstvo }}</td><td>{{ cyklus.vysadba.naklady }}</td>
+                <td>{{ cyklus.zber.datumZberu }}</td><td>{{ cyklus.zber.uroda }}</td><td>{{ cyklus.zber.zisk }}</td></tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Táto plodina ešte nebola použitá!</p>
+    {% endif %}
+    <a href="{% url 'spravaPoli:prehlad pola' %}" class="button2">Späť na prehľad pola</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="utf-8">
+	{% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'general/default_styles.css' %}"/>
+    <title>{% block title %}AgroManager v1.0{% endblock %}</title>
+</head>
+
+<body>
+	<div id="topbar">
+        <span id="titleName">AgroManager</span>
+	    <nav>
+            {% block sidebar %}
+              <ul>
+                  <li><a href= {% url 'spravaPoli:prehlad pola' %}>Domov</a></li>
+              </ul>
+          {% endblock %}
+	    </nav>
+    </div>
+
+    <section>
+        {% block content %}{% endblock %}
+    </section>
+    <footer>
+    	<p>Copyright Andrej Jurčo</p>
+    </footer>
+</body>
+</html>

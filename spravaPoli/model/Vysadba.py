@@ -1,9 +1,11 @@
+from datetime import date
+
 from django.db import models
-from datetime import date, time
+from django.db.models import DurationField
 
 
 class Vysadba(models.Model):
-    datumVysadby = models.DateField("Datum vysadby", default = date.today())
-    casVysadby = models.TimeField(time(0,0,0))
-    naklady = models.PositiveIntegerField("Naklady", default=0)
-    vysadeneMnozstvo = models.PositiveIntegerField("Vysadene mnozstvo (g)", default=0)
+    datumVysadby = models.DateField("Dátum výsadby", default = date.today())
+    casVysadby = DurationField("Trvanie výsadby")
+    naklady = models.PositiveIntegerField("Náklady", default=0)
+    vysadeneMnozstvo = models.PositiveIntegerField("Vysadené množstvo (g)", default=0)
