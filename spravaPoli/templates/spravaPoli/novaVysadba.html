@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <form action={% url 'spravaPoli:nova vysadba' cast_id cyklus_id %} method="POST">
+    {% csrf_token %}
+    {% if form %}
+        <p> FORM</p>
+        {% for field in form %}
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }} <br>
+        {%  endfor %}
+        <input type="hidden" value={{ cyklus_id }} name="cyklus" id="cyklus">
+        <input type="submit" value="Potvrdiť" />
+        <a href="{% url 'spravaPoli:prehlad casti' cast_id %}">Späť na prehľad casti</a>
+    </form>
+    {% else %}
+    <p>Ohhhh</p>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

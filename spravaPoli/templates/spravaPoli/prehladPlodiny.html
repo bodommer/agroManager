@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for cyklus in data %}
+    <div>
+        <h5>{{ cyklus.cast.meno }}</h5>
+        <p>{{ cyklus.vysadba }}</p>
+        <p>{{ cyklus.zber }}</p>
+    </div>
+    <a href="{% url 'spravaPoli:prehlad pola' %}">Späť na prehľad pola</a>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    {% for cyklus in cykly %}
+        <div>
+            <h5>{{ cyklus.cast.meno }}, {{ cyklus.plodina.meno }}</h5>
+            {% if cyklus.vysadba %}
+                <p>{{ cyklus.vysadba.datumVysadby }}, {{ cyklus.vysadba.casVysadby }}, {{ cyklus.vysadba.naklady }}, {{ cyklus.vysadba.vysadeneMnozstvo }}</p>
+            {% else %}
+                <a href="{% url 'spravaPoli:nova vysadba' cast_id cyklus.id %}">Pridat vysadbu</a>
+            {% endif %}
+            {% if cyklus.zber %}
+                <p>{{ cyklus.zber.datumZberu }}, {{ cyklus.zber.casZberu }}, {{ cyklus.zber.uroda }}, {{ cyklus.zber.zisk }}</p>
+            {% else %}
+                <a href="{% url 'spravaPoli:novy zber' cast_id cyklus.id %}">Pridat zber</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <form action={% url 'spravaPoli:prehlad casti' cast_id %} method="POST">
+    {% csrf_token %}
+        <select name="plodina_id" id="plodina_id">
+            {% for pl in plodiny %}
+                <option value={{ pl.id }}>{{ pl.meno }}</option>
+            {% endfor %}
+        </select>
+        <input type="hidden" value="novy_cyklus">
+        <input type="submit" value="Novy cyklus" />
+    </form>
+    <a href="{% url 'spravaPoli:prehlad pola' %}">Späť na prehľad pola</a>
+{% endblock %}
+</body>
+</html>
