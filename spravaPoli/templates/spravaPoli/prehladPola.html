@@ -30,7 +30,7 @@
         <p>Ešte nie sú pridané žiadne plodiny!</p>
     {% endif %}
     {% for plod in plodiny %}<div class="OverviewPlodina">
-        <a href={% url 'spravaPoli:prehlad plodiny' plod.id %} class="plodinaLink">
+            <a href={% url 'spravaPoli:prehlad plodiny' plod.id %} class="plodinaLink">
                 <h3>{{ plod.meno }}</h3>
             </a>
         </div>{% endfor %}<div class="OverviewPlodina">

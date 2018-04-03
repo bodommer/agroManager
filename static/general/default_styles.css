@@ -63,17 +63,24 @@ section {
 .OverviewCast {
     width: calc(50% - 2px - 6%);
     display: inline-block;
+    float: left;
     margin: 1.5% 3%;
     border: solid 1px black;
     height: 160px;
     border-radius: 8px;
+    overflow: hidden;
 }
 
 .OverviewCast:hover {
     box-shadow: 8px 8px 12px 4px grey;
+    background-color: green;
 }
 
-.castLink {
+.OverviewCast:hover * {
+    color: #FFFFFF;
+}
+
+.castLink  {
     display: block;
     width: 100%;
     padding: 2%;

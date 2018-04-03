@@ -25,7 +25,7 @@ SECRET_KEY = '8zi3gm9vmu1aun)4s(ew-t&@7w%gq8asq%us*n#i#(g2pr8%28'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bodommer.pythonanywhere.com',
+ALLOWED_HOSTS = ['agromanager.pythonanywhere.com',
                  '127.0.0.1']
 
 
